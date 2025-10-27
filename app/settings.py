@@ -40,6 +40,11 @@ INSTALLED_APPS = [
 
     # MY APPS
     'rest_framework',
+    'class',
+    'registration',
+    'resources',
+    'student',
+    'training',
 ]
 
 MIDDLEWARE = [
