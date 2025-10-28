@@ -15,11 +15,12 @@ class Resource(models.Model):
                     null=True, blank=True)
     course = models.ForeignKey(Course, verbose_name='Turma', \
                 on_delete=models.CASCADE)
-    type_resource = models.CharField(choices=CHOICES_RESOURCE, max_length=1)
+    type_resource = models.CharField(choices=CHOICES_RESOURCE, max_length=1, \
+                        verbose_name='Tipo de recurso')
     previous_acess = models.CharField(choices=[('S', 'Sim'), ('N', 'Não')], \
-                        max_length=1)
+                        max_length=1, verbose_name='Acesso prévio')
     draft = models.CharField(choices=[('S', 'Sim'), ('N', 'Não')], \
-                        max_length=1)
+                        max_length=1, verbose_name='Rascunho')
 
     class Meta:
         ordering = ['name']

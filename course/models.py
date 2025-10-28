@@ -8,7 +8,7 @@ from training.models import Training
 class Course(models.Model):
 
     name = models.CharField(verbose_name='Nome', max_length=100, unique=True)
-    trainig = models.ForeignKey(Training, verbose_name='Treinamento', \
+    training = models.ForeignKey(Training, verbose_name='Treinamento', \
                 on_delete=models.SET_NULL, null=True)
     start_date = models.DateField(verbose_name='Data de Início', blank=True, \
                     null=True)

@@ -10,7 +10,7 @@ class Student(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,\
             verbose_name="Nome", on_delete=models.CASCADE)
     e_mail = models.EmailField(verbose_name='E-mail', max_length=254,\
-                unique=True)
+                unique=True, null=True,)
     phone = PhoneNumberField(blank=True, null=True, verbose_name='Telefone')
 
     class Meta:
