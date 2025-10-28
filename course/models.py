@@ -14,7 +14,7 @@ class Course(models.Model):
                     null=True)
     conclusion_date = models.DateField(verbose_name='Data de Conclusão', \
                         blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
 
 
     class Meta:
@@ -23,8 +23,12 @@ class Course(models.Model):
         verbose_name_plural = 'Turmas'
 
     def clean(self):
+        print(self.slug)
         if not self.slug:
-            self.slug = slugify(self.name)
+            new_slug = slugify(self.name)
+            print(new_slug)
+
+            self.slug = new_slug
 
     def save(self, *args, **kwargs):
         self.clean()

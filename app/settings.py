@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'course',
     'registration',
     'resources',
-    'student',
+    'student.apps.StudentConfig',
     'training',
 ]
 
