@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='container mt-4'>
+    <h3 class='display-6'>Informações da Turma</h3>
+    <div class='card'>
+        <div class='card-body'>
+            {% comment %} IMPLEMENTADO {% endcomment %}
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- 
+                        Esta é a tabela de informações.
+                        - .table: Estilo base do Bootstrap.
+                        - .table-bordered: Adiciona bordas em todas as células.
+                        - .table-striped: Adiciona cores alternadas nas linhas (zebrado).
+                    -->
+                    <div class="card shadow-sm rounded-3">
+                        <div class="card-body p-0">
+                            <table class="table table-bordered table-striped mb-0">
+                                <tbody>
+                                    <!-- 
+                                        Para cada linha (tr):
+                                        - A primeira célula (th) é o "Atributo". 
+                                        Usamos <th> (table header) com scope="row" por semântica,
+                                        indicando que é o cabeçalho daquela linha.
+                                        - A segunda célula (td) é a "Informação" (o valor).
+                                    -->
+                                    <tr>
+                                        <th scope="row" class="w-25">TURMA</th>
+                                        <td>{{object.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CURSO</th>
+                                        <td>{{object.training.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DATA DE INÍCIO</th>
+                                        <td>{{object.start_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DATA DE CONCLUSÃO</th>
+                                        <td>{{object.conclusion_date}}</td>
+                                    </tr>
+                                    {% now "Y-m-d" as hoje %}
+                                    {% for resource in object.resource_set.all %}
+                                        <tr>
+                                            {% if resource.get_type_resource_display != "VÍDEO" %}
+                                                <th scope="row">Recurso:</th>
+                                                <td>
+                                                    {{resource.name}} |
+                                                    {% with object.start_date|date:"Y-m-d" as data_object %}
+                                                            {% if data_object > hoje and resource.get_previous_acess_display == "Sim" and resource.get_type_resource_display != "VÍDEO" %}
+                                                            <a href="#">{{resource.get_type_resource_display}}</a> |
+                                                            {% elif data_object <= hoje and resource.get_draft_display == "Não" and resource.get_type_resource_display != "VÍDEO" %}
+                                                                <a href="#">{{resource.get_type_resource_display}}</a> |
+                                                            {% elif resource.get_type_resource_display != "VÍDEO" %}
+                                                                {{resource.get_type_resource_display}} |
+                                                            {% endif %}
+                                                    {% endwith %}
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+
+                                    {% for resource in object.resource_set.all %}
+                                        <tr>
+                                            {% if resource.get_type_resource_display == "VÍDEO" %}
+                                                <th scope="row">Recurso:</th>
+                                                    <td>
+                                                        {{resource.name}} |
+                                                        {% with object.start_date|date:"Y-m-d" as data_object %}
+                                                                {% if data_object > hoje and resource.get_previous_acess_display == "Sim" %}
+                                                                <a href="{% url "course:video" %}">{{resource.get_type_resource_display}}</a> |
+                                                                {% elif data_object <= hoje and resource.get_draft_display == "Não"%}
+                                                                    <a href="{% url "course:video" %}">{{resource.get_type_resource_display}}</a> |
+                                                                {% elif resource.get_type_resource_display %}
+                                                                    {{resource.get_type_resource_display}} |
+                                                                {% endif %}
+                                                        {% endwith %}
+                                                    </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            {% comment %} IMPLEMENTADO {% endcomment %}
+        </div>
+
+    </div>
+
+    <div>
+        <a href="{% url "student:home" %}" class='btn btn-primary m-3 mt-0'>
+            Voltar
+        </a>
+    </div>
+</div>
+
+{% endblock content %}

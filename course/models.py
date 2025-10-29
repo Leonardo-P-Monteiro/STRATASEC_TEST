@@ -36,7 +36,7 @@ class Course(models.Model):
 
     #TODO: Fazer o link - Class
     def get_absolute_url(self):
-        return reverse('COLOCAR NOME DA URL', args=[self.slug])
+        return reverse('course:detail', args=[self.pk])
     
     def __str__(self):
         return self.name

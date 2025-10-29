@@ -38,7 +38,7 @@
                     <td>{{registration.course.start_date}}</td>
                     <td>{{registration.course.conclusion_date}}</td>
                     <td> 
-                        <a href="#" class='btn btn-primary btn-small'>
+                        <a href="{% url "course:detail" registration.course.pk %}" class='btn btn-primary btn-small'>
                             <i class='bi bi-search'></i>
                         </a>
                     </td>
