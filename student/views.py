@@ -30,6 +30,6 @@ class StudentList(ListView):
         course = self.request.GET.get('course')
 
         if course:
-            qs = qs.filter(course__name=course)
+            qs = qs.filter(course__training__name__icontains=course)
 
         return qs
