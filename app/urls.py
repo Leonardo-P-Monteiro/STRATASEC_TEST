@@ -19,12 +19,28 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from debug_toolbar.toolbar import debug_toolbar_urls
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('student.urls')),
     path('course/', include('course.urls')),
+
+    # URLS OF API
+
+    path('api/v1/', include('api.urls')),
+
+
+
+    # URLS OF THE DRF
+
+    # Rota para baixar o arquivo schema.yml (o "cérebro" da documentação)
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Rota para a interface do Swagger UI (a que você quer)
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    # Rota para a interface do ReDoc (uma alternativa)
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 

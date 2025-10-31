@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # THIRD APPS
     'rest_framework',
+    'drf_spectacular',
     'debug_toolbar',
     'axes',
 
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'resources',
     'student.apps.StudentConfig',
     'training',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +177,9 @@ AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# SETTINGS OF DRF-SPECTACULAR
+REST_FRAMEWORK = {
+    # Informa ao DRF para usar o 'drf-spectacular' para gerar o esquema
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
